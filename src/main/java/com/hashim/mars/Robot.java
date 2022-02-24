@@ -6,6 +6,7 @@ public class Robot {
     private String currentOrientation;
     private String instructions;
     private Grid grid;
+    private boolean isLost;
 
     public Robot(int currentXPosition, int currentYPosition, String currentOrientation, String instruction, Grid grid) {
         this.currentXPosition = currentXPosition;
@@ -13,6 +14,7 @@ public class Robot {
         this.currentOrientation = currentOrientation;
         this.instructions = instruction;
         this.grid = grid;
+        this.isLost = false;
 
         if(instruction.length() >= 100) {
             throw new IllegalArgumentException("Instruction string must be less than 100 characters in length.");
@@ -113,10 +115,7 @@ public class Robot {
      * orientation and maintains the same orientation.
      */
     private void moveForwardOne() {
-        boolean isScented = false;
-        if (grid.hasScentAtPosition(currentXPosition,currentYPosition)) {
-            isScented = true;
-        }
+        boolean isScented = grid.hasScentAtPosition(currentXPosition, currentYPosition);
 
         // save previous positions before they are changed
         int previousX = this.currentXPosition;
@@ -148,6 +147,7 @@ public class Robot {
         if(isPositionOffGrid(currentXPosition, currentYPosition)) {
             // The scent is left at the last grid position the robot occupied before disappearing over the edge.
             grid.addScentToPosition(previousX,previousY);
+            this.isLost = true;
         }
     }
 
@@ -157,5 +157,15 @@ public class Robot {
      */
     private boolean isPositionOffGrid(int x, int y) {
         return x > grid.getXLimit() || y > grid.getYLimit() || x < 0 || y < 0;
+    }
+
+    public String getResult() {
+        return "" + this.currentXPosition + " " + this.currentYPosition + " " + this.currentOrientation + getLostStr();
+    }
+
+    public String getLostStr() {
+        if (isLost)
+            return " LOST";
+        return "";
     }
 }
