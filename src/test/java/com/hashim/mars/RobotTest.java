@@ -226,4 +226,56 @@ public class RobotTest {
         assertEquals(robot.getCurrentOrientation(), "S");
     }
 
+    @Test
+    public void givenInitialNorthAndTurnRightInstruction_whenRobotFollowInstruction_thenRobotTurnsLeft() {
+        int initialX = 4, initialY = 0;
+        String initialOrientation = "N";
+        String instruction = "RRR";
+
+        Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        robot.followInstructions();
+
+        // Assert that robot has moved West 3 times from initial position
+        assertEquals(robot.getCurrentOrientation(), "W");
+    }
+
+    @Test
+    public void givenInitialEastAndTurnRightInstruction_whenRobotFollowInstruction_thenRobotTurnsLeft() {
+        int initialX = 4, initialY = 0;
+        String initialOrientation = "E";
+        String instruction = "RRR";
+
+        Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        robot.followInstructions();
+
+        // Assert that robot has moved West 3 times from initial position
+        assertEquals(robot.getCurrentOrientation(), "N");
+    }
+
+    @Test
+    public void givenInitialSouthAndTurnRightInstruction_whenRobotFollowInstruction_thenRobotTurnsLeft() {
+        int initialX = 4, initialY = 0;
+        String initialOrientation = "S";
+        String instruction = "RRR";
+
+        Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        robot.followInstructions();
+
+        // Assert that robot has moved West 3 times from initial position
+        assertEquals(robot.getCurrentOrientation(), "E");
+    }
+
+    @Test
+    public void givenInitialWestAndTurnRightInstruction_whenRobotFollowInstruction_thenRobotTurnsLeft() {
+        int initialX = 4, initialY = 0;
+        String initialOrientation = "W";
+        String instruction = "RRR";
+
+        Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        robot.followInstructions();
+
+        // Assert that robot has moved West 3 times from initial position
+        assertEquals(robot.getCurrentOrientation(), "S");
+    }
+
 }

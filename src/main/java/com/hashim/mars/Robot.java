@@ -56,9 +56,34 @@ public class Robot {
                 case 'L': // left
                     turnLeft();
                     break;
+                case 'R': // right
+                    turnRight();
+                    break;
                 default:
                     throw new UnsupportedOperationException("Instruction not recognised: " + instruction);
             }
+        }
+    }
+
+    /**
+     * The robot turns right 90 degrees and remains on the current grid point.
+     */
+    private void turnRight() {
+        switch (this.currentOrientation) {
+            case "N":
+                this.currentOrientation = "E";
+                break;
+            case "E":
+                this.currentOrientation = "S";
+                break;
+            case "S":
+                this.currentOrientation = "W";
+                break;
+            case "W":
+                this.currentOrientation = "N";
+                break;
+            default:
+                throw new RuntimeException("Orientation not recognised");
         }
     }
 
