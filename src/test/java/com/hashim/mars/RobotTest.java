@@ -23,6 +23,7 @@ public class RobotTest {
         String instruction = "RR";
 
         Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        // Assert that robot parameters were correctly set:
         assertEquals(robot.getCurrentYPosition(), initialX);
         assertEquals(robot.getCurrentXPosition(), initialY);
         assertEquals(robot.getCurrentOrientation(), initialOrientation);
@@ -39,6 +40,7 @@ public class RobotTest {
         String initialOrientation = "N";
         String instruction = "FRRFLLFFRRFLLLLFFFLFLFLRFRFRFRFFRRFLLFFRRFLLLLFFFLFLFLRFRFRFRFFRRFLLFFRRFLLLLFFFLFLFLRFRFRFRFFRRFLLF";
 
+        // Assert that an exception is thrown
         IllegalArgumentException thrownException = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
         });
@@ -55,6 +57,7 @@ public class RobotTest {
         String initialOrientation = "N";
         String instruction = "RR";
 
+        // Assert that an exception is thrown
         IllegalArgumentException thrownException = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
         });
@@ -71,6 +74,7 @@ public class RobotTest {
         String initialOrientation = "N";
         String instruction = "RR";
 
+        // Assert that an exception is thrown
         IllegalArgumentException thrownException = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
         });
@@ -87,8 +91,10 @@ public class RobotTest {
         String initialOrientation = "N";
         String instruction = "RR";
 
+        // Check that initial robot X position is greater than the grid limit
         assertTrue(initialX > this.grid.getXLimit());
 
+        // Assert that an exception is thrown
         IllegalArgumentException thrownException = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
         });
@@ -105,8 +111,10 @@ public class RobotTest {
         String initialOrientation = "N";
         String instruction = "RR";
 
+        // Check that initial robot Y position is greater than the grid limit
         assertTrue(initialY > this.grid.getYLimit());
 
+        // Assert that an exception is thrown
         IllegalArgumentException thrownException = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
         });
