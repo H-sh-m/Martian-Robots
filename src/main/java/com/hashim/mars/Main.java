@@ -1,6 +1,6 @@
 package com.hashim.mars;
 
-public class main {
+public class Main {
     public static void main(String[] args) {
 
         Grid grid = new Grid(5,3);
