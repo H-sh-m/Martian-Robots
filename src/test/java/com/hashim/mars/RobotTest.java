@@ -123,7 +123,7 @@ public class RobotTest {
     }
 
     @Test
-    public void givenForwardInstructionOnly_whenRobotFollowInstructions_thenRobotMovesForward() {
+    public void givenInitialNorthAndForwardInstruction_whenRobotFollowInstructions_thenRobotMovesForward() {
         int initialX = 0, initialY = 0;
         String initialOrientation = "N";
         String instruction = "FFF";
@@ -133,6 +133,45 @@ public class RobotTest {
 
         // Assert that robot has moved North 3 times from initial position
         assertEquals(robot.getCurrentYPosition(), 3);
+    }
+
+    @Test
+    public void givenInitialSouthAndForwardInstruction_whenRobotFollowInstructions_thenRobotMovesForward() {
+        int initialX = 0, initialY = 3;
+        String initialOrientation = "S";
+        String instruction = "FFF";
+
+        Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        robot.followInstructions();
+
+        // Assert that robot has moved South 3 times from initial position
+        assertEquals(robot.getCurrentYPosition(), 0);
+    }
+
+    @Test
+    public void givenInitialEastAndForwardInstruction_whenRobotFollowInstructions_thenRobotMovesForward() {
+        int initialX = 0, initialY = 0;
+        String initialOrientation = "E";
+        String instruction = "FFF";
+
+        Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        robot.followInstructions();
+
+        // Assert that robot has moved East 3 times from initial position
+        assertEquals(robot.getCurrentXPosition(), 3);
+    }
+
+    @Test
+    public void givenInitialWestAndForwardInstruction_whenRobotFollowInstructions_thenRobotMovesForward() {
+        int initialX = 4, initialY = 0;
+        String initialOrientation = "W";
+        String instruction = "FFF";
+
+        Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        robot.followInstructions();
+
+        // Assert that robot has moved West 3 times from initial position
+        assertEquals(robot.getCurrentXPosition(), 1);
     }
 
 }
