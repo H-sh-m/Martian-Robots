@@ -346,5 +346,29 @@ public class RobotTest {
         assertTrue(this.grid.hasScentAtPosition(robot.getCurrentXPosition()+1, robot.getCurrentYPosition()));
     }
 
+    /**
+     * An instruction to move “off” the world from a grid point from which a robot has been previously lost is simply
+     * ignored by the current robot.
+     */
+    @Test
+    public void givenFirstRobotLeftScent_whenSecondRobotFollowInstruction_thenSecondRobotDoesNotFall() {
+        int initialX = 1, initialY = 1;
+        String initialOrientation = "W";
+        String instruction = "FF";
+
+        Robot lostRobot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        lostRobot.followInstructions();
+
+        Robot secondRobot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        secondRobot.followInstructions();
+
+        assertEquals(lostRobot.getCurrentXPosition(), -1);
+        // lost robot has fallen off the grid:
+        assertTrue(this.grid.hasScentAtPosition(lostRobot.getCurrentXPosition()+1, lostRobot.getCurrentYPosition()));
+        // second robot should still be at the scented position:
+        assertEquals(secondRobot.getCurrentXPosition(), lostRobot.getCurrentXPosition() + 1);
+        assertEquals(secondRobot.getCurrentYPosition(), lostRobot.getCurrentYPosition());
+    }
+
 
 }

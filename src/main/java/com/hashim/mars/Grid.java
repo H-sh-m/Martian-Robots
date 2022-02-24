@@ -29,6 +29,15 @@ public class Grid {
         return scentedCoordinateList.contains(new Coordinate(x, y));
     }
 
+    /**
+     * Since the grid is rectangular and bounded (...yes Mars is a strange planet), a robot that
+     * moves “off” an edge of the grid is lost forever. However, lost robots leave a robot “scent” that
+     * prohibits future robots from dropping off the world at the same grid point. The scent is left at
+     * the last grid position the robot occupied before disappearing over the edge.
+     *
+     * @param previousX
+     * @param previousY
+     */
     public void addScentToPosition(int previousX, int previousY) {
         scentedCoordinateList.add(new Coordinate(previousX, previousY));
     }

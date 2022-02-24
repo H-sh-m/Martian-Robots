@@ -17,7 +17,7 @@ public class Robot {
         if(instruction.length() >= 100) {
             throw new IllegalArgumentException("Instruction string must be less than 100 characters in length.");
         }
-        if(isPositionLost(currentXPosition, currentYPosition)) {
+        if(isPositionOffGrid(currentXPosition, currentYPosition)) {
             throw new IllegalArgumentException("Robot position is outside grid bounds.");
         }
     }
@@ -113,30 +113,40 @@ public class Robot {
      * orientation and maintains the same orientation.
      */
     private void moveForwardOne() {
+        boolean isScented = false;
+        if (grid.hasScentAtPosition(currentXPosition,currentYPosition)) {
+            isScented = true;
+        }
+
         // save previous positions before they are changed
         int previousX = this.currentXPosition;
         int previousY = this.currentYPosition;
 
-        // move
+        // move only if the location isn't scented
         switch (this.currentOrientation) {
             case "N":
-                this.currentYPosition += 1;
+                if (!((isScented) && (this.currentYPosition + 1 > this.grid.getYLimit())))
+                    this.currentYPosition += 1;
                 break;
             case "S":
-                this.currentYPosition -= 1;
+                if (!((isScented) && (this.currentYPosition - 1 < 0)))
+                    this.currentYPosition -= 1;
                 break;
             case "E":
-                this.currentXPosition += 1;
+                if (!((isScented) && (this.currentXPosition + 1 > this.grid.getXLimit())))
+                    this.currentXPosition += 1;
                 break;
             case "W":
-                this.currentXPosition -= 1;
+                if (!((isScented) && (this.currentXPosition - 1 < 0)))
+                    this.currentXPosition -= 1;
                 break;
             default:
                 throw new RuntimeException("Orientation not recognised");
         }
 
-        // add scent if moved off grid
-        if(isPositionLost(currentXPosition, currentYPosition)) {
+        // Check if robot has fallen off grid
+        if(isPositionOffGrid(currentXPosition, currentYPosition)) {
+            // The scent is left at the last grid position the robot occupied before disappearing over the edge.
             grid.addScentToPosition(previousX,previousY);
         }
     }
@@ -145,7 +155,7 @@ public class Robot {
      *
      * @return true if the position is off the grid, false if the position is on the grid.
      */
-    private boolean isPositionLost(int x, int y) {
+    private boolean isPositionOffGrid(int x, int y) {
         return x > grid.getXLimit() || y > grid.getYLimit() || x < 0 || y < 0;
     }
 }
