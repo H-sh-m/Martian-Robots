@@ -278,4 +278,73 @@ public class RobotTest {
         assertEquals(robot.getCurrentOrientation(), "S");
     }
 
+    @Test
+    public void givenForwardAndLeftAndRightInstruction_whenRobotFollowInstruction_thenRobotMoves() {
+        int initialX = 1, initialY = 1;
+        String initialOrientation = "N";
+        String instruction = "RFRFRFRFLF";
+
+        Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        robot.followInstructions();
+
+        assertEquals(robot.getCurrentXPosition(), 0);
+        assertEquals(robot.getCurrentYPosition(), 1);
+        assertEquals(robot.getCurrentOrientation(), "W");
+    }
+
+    @Test
+    public void givenRobotMovesOffNorthEdge_whenRobotFollowInstruction_thenGridPointHasScent() {
+        int initialX = 1, initialY = 1;
+        String initialOrientation = "N";
+        String instruction = "FFF";
+
+        Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        robot.followInstructions();
+
+        assertEquals(robot.getCurrentYPosition(), 4);
+        assertTrue(4 > this.grid.getYLimit());
+        assertTrue(this.grid.hasScentAtPosition(robot.getCurrentXPosition(), robot.getCurrentYPosition()-1));
+    }
+
+    @Test
+    public void givenRobotMovesOffEastEdge_whenRobotFollowInstruction_thenGridPointHasScent() {
+        int initialX = 1, initialY = 1;
+        String initialOrientation = "E";
+        String instruction = "FFFFF";
+
+        Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        robot.followInstructions();
+
+        assertEquals(robot.getCurrentXPosition(), 6);
+        assertTrue(6 > this.grid.getXLimit());
+        assertTrue(this.grid.hasScentAtPosition(robot.getCurrentXPosition()-1, robot.getCurrentYPosition()));
+    }
+
+    @Test
+    public void givenRobotMovesOffSouthEdge_whenRobotFollowInstruction_thenGridPointHasScent() {
+        int initialX = 1, initialY = 1;
+        String initialOrientation = "S";
+        String instruction = "FF";
+
+        Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        robot.followInstructions();
+
+        assertEquals(robot.getCurrentYPosition(), -1);
+        assertTrue(this.grid.hasScentAtPosition(robot.getCurrentXPosition(), robot.getCurrentYPosition()+1));
+    }
+
+    @Test
+    public void givenRobotMovesOffWestEdge_whenRobotFollowInstruction_thenGridPointHasScent() {
+        int initialX = 1, initialY = 1;
+        String initialOrientation = "W";
+        String instruction = "FF";
+
+        Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        robot.followInstructions();
+
+        assertEquals(robot.getCurrentXPosition(), -1);
+        assertTrue(this.grid.hasScentAtPosition(robot.getCurrentXPosition()+1, robot.getCurrentYPosition()));
+    }
+
+
 }

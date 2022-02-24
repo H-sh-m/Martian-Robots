@@ -6,6 +6,7 @@ public class Grid {
 
     private int xLimit;
     private int yLimit;
+    private ArrayList<Coordinate> scentedCoordinateList = new ArrayList<Coordinate>();
 
     public Grid(int xLimit, int yLimit) {
         if (xLimit < 0 || yLimit < 0 || xLimit > 50 || yLimit > 50)
@@ -24,4 +25,11 @@ public class Grid {
         return yLimit;
     }
 
+    public boolean hasScentAtPosition(int x, int y) {
+        return scentedCoordinateList.contains(new Coordinate(x, y));
+    }
+
+    public void addScentToPosition(int previousX, int previousY) {
+        scentedCoordinateList.add(new Coordinate(previousX, previousY));
+    }
 }

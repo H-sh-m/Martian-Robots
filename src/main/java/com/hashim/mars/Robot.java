@@ -8,18 +8,17 @@ public class Robot {
     private Grid grid;
 
     public Robot(int currentXPosition, int currentYPosition, String currentOrientation, String instruction, Grid grid) {
+        this.currentXPosition = currentXPosition;
+        this.currentYPosition = currentYPosition;
+        this.currentOrientation = currentOrientation;
+        this.instructions = instruction;
+        this.grid = grid;
+
         if(instruction.length() >= 100) {
             throw new IllegalArgumentException("Instruction string must be less than 100 characters in length.");
         }
-        else if(currentXPosition > grid.getXLimit() || currentYPosition > grid.getYLimit() || currentXPosition < 0 || currentYPosition < 0) {
+        if(isPositionLost(currentXPosition, currentYPosition)) {
             throw new IllegalArgumentException("Robot position is outside grid bounds.");
-        }
-        else {
-            this.currentXPosition = currentXPosition;
-            this.currentYPosition = currentYPosition;
-            this.currentOrientation = currentOrientation;
-            this.instructions = instruction;
-            this.grid = grid;
         }
     }
 
@@ -114,6 +113,11 @@ public class Robot {
      * orientation and maintains the same orientation.
      */
     private void moveForwardOne() {
+        // save previous positions before they are changed
+        int previousX = this.currentXPosition;
+        int previousY = this.currentYPosition;
+
+        // move
         switch (this.currentOrientation) {
             case "N":
                 this.currentYPosition += 1;
@@ -130,5 +134,18 @@ public class Robot {
             default:
                 throw new RuntimeException("Orientation not recognised");
         }
+
+        // add scent if moved off grid
+        if(isPositionLost(currentXPosition, currentYPosition)) {
+            grid.addScentToPosition(previousX,previousY);
+        }
+    }
+
+    /**
+     *
+     * @return true if the position is off the grid, false if the position is on the grid.
+     */
+    private boolean isPositionLost(int x, int y) {
+        return x > grid.getXLimit() || y > grid.getYLimit() || x < 0 || y < 0;
     }
 }
