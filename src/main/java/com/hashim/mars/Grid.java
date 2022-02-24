@@ -6,23 +6,20 @@ public class Grid {
     private int yLimit;
 
     public Grid(int xLimit, int yLimit) {
-        this.xLimit = xLimit;
-        this.yLimit = yLimit;
+        if (xLimit < 0 || yLimit < 0 || xLimit > 50 || yLimit > 50)
+            throw new IllegalArgumentException("Invalid coordinates: The maximum value for any coordinate is 50 and not less than 0.");
+        else {
+            this.xLimit = xLimit;
+            this.yLimit = yLimit;
+        }
     }
 
     public int getXLimit() {
         return xLimit;
     }
 
-    public void setXLimit(int xLimit) {
-        this.xLimit = xLimit;
-    }
-
     public int getYLimit() {
         return yLimit;
     }
 
-    public void setYLimit(int yLimit) {
-        this.yLimit = yLimit;
-    }
 }
