@@ -1,5 +1,7 @@
 package com.hashim.mars;
 
+import java.util.ArrayList;
+
 public class Grid {
 
     private int xLimit;

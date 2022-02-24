@@ -4,7 +4,7 @@ public class Robot {
 
     private int currentXPosition, currentYPosition;
     private String currentOrientation;
-    private String instruction;
+    private String instructions;
     private Grid grid;
 
     public Robot(int currentXPosition, int currentYPosition, String currentOrientation, String instruction, Grid grid) {
@@ -18,7 +18,7 @@ public class Robot {
             this.currentXPosition = currentXPosition;
             this.currentYPosition = currentYPosition;
             this.currentOrientation = currentOrientation;
-            this.instruction = instruction;
+            this.instructions = instruction;
             this.grid = grid;
         }
     }
@@ -35,11 +35,50 @@ public class Robot {
         return currentOrientation;
     }
 
-    public String getInstruction() {
-        return instruction;
+    public String getInstructions() {
+        return instructions;
     }
 
     public Grid getGrid() {
         return grid;
+    }
+
+    public void followInstructions() {
+        // for each character in the instruction string
+        for (int i = 0; i < this.instructions.length(); i++){
+            char instruction = instructions.charAt(i);
+            //Process the action
+            //A robot instruction is a string of the letters “L”, “R”, and “F”
+            switch (instruction) {
+                case 'F': // forward
+                    moveForwardOne();
+                    break;
+                default:
+                    throw new UnsupportedOperationException("Instruction not recognised: " + instruction);
+            }
+        }
+    }
+
+    /**
+     * The robot moves forward one grid point in the direction of the current
+     * orientation and maintains the same orientation.
+     */
+    private void moveForwardOne() {
+        switch (this.currentOrientation) {
+            case "N":
+                this.currentYPosition += 1;
+                break;
+            case "S":
+                this.currentYPosition -= 1;
+                break;
+            case "E":
+                this.currentXPosition += 1;
+                break;
+            case "W":
+                this.currentXPosition -= 1;
+                break;
+            default:
+                throw new RuntimeException("Orientation not recognised");
+        }
     }
 }

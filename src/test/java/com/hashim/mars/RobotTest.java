@@ -27,7 +27,7 @@ public class RobotTest {
         assertEquals(robot.getCurrentYPosition(), initialX);
         assertEquals(robot.getCurrentXPosition(), initialY);
         assertEquals(robot.getCurrentOrientation(), initialOrientation);
-        assertEquals(robot.getInstruction(), instruction);
+        assertEquals(robot.getInstructions(), instruction);
         assertEquals(robot.getGrid().getXLimit(), 5);
     }
 
@@ -120,6 +120,19 @@ public class RobotTest {
         });
 
         assertEquals("Robot position is outside grid bounds.", thrownException.getMessage());
+    }
+
+    @Test
+    public void givenForwardInstructionOnly_whenRobotFollowInstructions_thenRobotMovesForward() {
+        int initialX = 0, initialY = 0;
+        String initialOrientation = "N";
+        String instruction = "FFF";
+
+        Robot robot = new Robot(initialX, initialY, initialOrientation, instruction, this.grid);
+        robot.followInstructions();
+
+        // Assert that robot has moved North 3 times from initial position
+        assertEquals(robot.getCurrentYPosition(), 3);
     }
 
 }
