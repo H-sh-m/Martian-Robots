@@ -18,6 +18,7 @@ The surface of Mars can be modelled by a rectangular grid around which robots ar
 ### Next steps:
 - Add more tests for scent logic at different edge positions
 - Accept user input in main method
+- Replace Robot integer coordinates with Coordinate object
 - Design interfaces for Robot and Grid and implement interfaces in specialised classes e.g., MarsRobot, MarsGrid, BigRobot
 - Include instructions for Mac developers
 - Use feature branches to develop new features and merge these back to the main branch when ready
