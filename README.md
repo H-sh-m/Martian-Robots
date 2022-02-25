@@ -21,3 +21,4 @@ The surface of Mars can be modelled by a rectangular grid around which robots ar
 - Design interfaces for Robot and Grid and implement interfaces in specialised classes e.g., MarsRobot, MarsGrid, BigRobot
 - Include instructions for Mac developers
 - Use feature branches to develop new features and merge these back to the main branch when ready
+- Add Javadocs to all classes and methods to help other developers understand code
